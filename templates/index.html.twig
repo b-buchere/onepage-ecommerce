@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}  
+
+{% block body %}
+<div class="container-fluid p-0 text-bg-secondary grid" id="main">
+            <div class="g-col-2 opt1 accordion" id="accordion">
+                {% for idtop, topitem in toplevel %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ idtop }}" aria-expanded="false"
+                            aria-controls="collapse{{ idtop }}">
+                            {{ topitem }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ idtop }}" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+    
+                            <ul class="scndlvl">
+    
+                                {% for idscnd, scnditem in scndlevel[idtop] %}
+                                <li data-url="/product/{{ idscnd }}">{{ scnditem }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="g-col-6 overflow-auto" id="modele">
+                <h2 id="title"></h2>
+            </div>
+    
+            <div class="g-col-6 d-none" id="valeur">
+                <h2 id="nomModele"></h2>
+            </div>
+    
+            <div class="g-col-4 d-none" id="info">
+                <div id="maininfo" class="border-bottom border-white">
+                    <p id='spanProduit'>Produit sélectionné</p>
+                    <p id="libProduct"></p>
+                </div>
+                <div id="detail">
+                    <p id="spanDetail"><span>Détail de la commande</span></p>
+                    <p id="produit"></p>
+                    <p id="total"></p>
+                </div>
+                <div id="divValider">
+                    <input type="button" id="buttonValider" value="valider"/>
+                </div>
+            </div>
+    
+        </div>
+        <script>
+            async function postData(url="", data = {}) {
+            	const response = await fetch(url);
+                return response.json();
+            } 
+        
+            function afficheInfo(idParamModele,operateur,modele)
+        	{
+
+                document.querySelector('#libProduct').innerHTML = operateur+" - "+modele;
+        		
+                document.querySelector("#produit").innerHTML = operateur+" "+modele+"€",
+                document.querySelector("#total").innerHTML = modele+"€",
+                document.querySelector('#info').classList.remove('d-none');
+        		
+        	}
+        	
+        	function afficheValeur(idModele, operateur, modele)
+        	{
+        	   
+        		document.querySelector('#info').classList.add("d-none");
+        		
+                var valeurFrame = document.querySelector('#valeur');
+                valeurFrame.querySelectorAll('input').forEach(e => e.remove());
+                
+        		for(cleParamModele in modele)
+        		{
+        			
+        			(function () {
+        				var valeur = modele[cleParamModele];
+            			var input=document.createElement('input');     
+            			valeurFrame.appendChild(input);
+            			var nodeInput=valeurFrame.lastChild;
+            			nodeInput.setAttribute('type','button');
+            			nodeInput.setAttribute('id',cleParamModele);
+            			nodeInput.setAttribute('class','cPM');
+            			nodeInput.setAttribute('value',valeur+'€');
+        			
+          		        nodeInput.addEventListener("click", function(e){
+                            afficheInfo(idModele,operateur, valeur);
+                        });
+    
+           			}());
+        		}
+
+        		valeurFrame.classList.remove("d-none");
+        	}
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                for(const element of document.querySelectorAll('.scndlvl>li')){
+                	  element.addEventListener("click", function(e) {
+                          var thisElement = this;
+                      
+                          postData( this.dataset.url ).then((data) => {
+                              
+                              document.querySelector('#title').innerText = thisElement.innerText;
+                              var modeleFrame = document.querySelector('#modele');
+                              modeleFrame.querySelectorAll('input').forEach(e => e.remove());
+                              
+                              for(id in data){
+                            	  (function () {
+                                      var modele = data[id];
+                                      var count = modele.length;    
+                                      
+                      		          var input=document.createElement('input');
+                			      
+                                      modeleFrame.appendChild(input);
+                                      var nodeInput = modeleFrame.lastChild;
+                                      nodeInput.setAttribute('type','button');
+                                      nodeInput.setAttribute('class','cadre');
+                                      nodeInput.setAttribute('id',id);
+                                      nodeInput.setAttribute('value',id);
+                                      
+                                      var handler = function(e){
+                                        afficheValeur(id, thisElement.innerText, modele);
+                                      };
+                      		          nodeInput.addEventListener("click", handler);
+                
+                          		      if(count == 1)
+                          			  {
+                          		    	  
+                                          nodeInput.setAttribute('value',modele[0]);
+                          		          nodeInput.removeEventListener("click", handler);
+                                          nodeInput.addEventListener("click", function(e){
+                                        	  document.querySelector('#valeur').classList.add("d-none");
+                                        	  afficheInfo(id,thisElement.innerText,modele[0]);
+                                          });
+                          					
+                          			  }
+                            	  }());
+                      	      }
+                        });
+                      
+                    })
+                }
+            });
+{% endblock %}
