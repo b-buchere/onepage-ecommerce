@@ -35,11 +35,11 @@
     
             <div class="g-col-4 d-none" id="info">
                 <div id="maininfo" class="border-bottom border-white">
-                    <p id='spanProduit'>Produit sélectionné</p>
+                    <p id='spanProduit'>Produit sï¿½lectionnï¿½</p>
                     <p id="libProduct"></p>
                 </div>
                 <div id="detail">
-                    <p id="spanDetail"><span>Détail de la commande</span></p>
+                    <p id="spanDetail"><span>DÃ©tail de la commande</span></p>
                     <p id="produit"></p>
                     <p id="total"></p>
                 </div>
@@ -49,6 +49,8 @@
             </div>
     
         </div>
+{% endblock %}
+{% block script %}
         <script>
             async function postData(url="", data = {}) {
             	const response = await fetch(url);
@@ -60,8 +62,8 @@
 
                 document.querySelector('#libProduct').innerHTML = operateur+" - "+modele;
         		
-                document.querySelector("#produit").innerHTML = operateur+" "+modele+"€",
-                document.querySelector("#total").innerHTML = modele+"€",
+                document.querySelector("#produit").innerHTML = operateur+" "+modele+"â‚¬",
+                document.querySelector("#total").innerHTML = modele+"â‚¬",
                 document.querySelector('#info').classList.remove('d-none');
         		
         	}
@@ -85,7 +87,7 @@
             			nodeInput.setAttribute('type','button');
             			nodeInput.setAttribute('id',cleParamModele);
             			nodeInput.setAttribute('class','cPM');
-            			nodeInput.setAttribute('value',valeur+'€');
+            			nodeInput.setAttribute('value',valeur+'ï¿½');
         			
           		        nodeInput.addEventListener("click", function(e){
                             afficheInfo(idModele,operateur, valeur);
@@ -145,4 +147,5 @@
                     })
                 }
             });
+            </script>
 {% endblock %}

@@ -16,27 +16,13 @@ class LoginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form=$event->getForm();
-            
-            if($event->getForm()->getConfig()->getOption('origin') == "cart" ){
-                $form->add('checkout', SubmitType::class, [
-                    'row_attr'=>[
-                        'class'=>'p-3 pt-0'
-                    ],
-                    'attr'=> [
-                        'class'=>'btn btn-primary col-12'
-                    ]
-                ]);
-            }
-        });
         
         $builder
             ->add(
-                'email',
+                'username',
                 TextType::class,
                 [
-                    'label'=>'Adresse email',
+                    'label'=>'username',
                     'row_attr'=>array('class'=>"form-group p-3 pb-4"),
                 ]
             )->add(
@@ -46,7 +32,10 @@ class LoginType extends AbstractType
                     'label' => 'Mot de passe',
                     'row_attr'=>array('class'=>"form-group p-3 pb-4 pt-0"),
                 ]
-            );
+                )->add(
+                    'submit',
+                    SubmitType::class,
+                );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

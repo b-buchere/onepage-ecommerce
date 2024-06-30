@@ -24,7 +24,7 @@ class IndexController extends AbstractController
         }
         
         
-        return $this->render('base.html.twig',[
+        return $this->render('index.html.twig',[
             'toplevel'=>$toplevel,
             'scndlevel'=>$secndlevel
         ]);

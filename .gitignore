@@ -1,7 +1,5 @@
 
 ###> symfony/framework-bundle ###
-/.buildpath
-/.project
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -21,3 +19,8 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 /node_modules/
+
+###> eclipse ###
+./settings**
+/.buildpath
+/.project
