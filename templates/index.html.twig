@@ -1,55 +1,56 @@
-{% extends 'base.html.twig' %}  
+{% extends 'usermenu.html.twig' %}
 
 {% block body %}
-<div class="container-fluid p-0 text-bg-secondary grid" id="main">
-            <div class="g-col-2 opt1 accordion" id="accordion">
-                {% for idtop, topitem in toplevel %}
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ idtop }}" aria-expanded="false"
-                            aria-controls="collapse{{ idtop }}">
-                            {{ topitem }}
-                        </button>
-                    </h2>
-                    <div id="collapse{{ idtop }}" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                        <div class="accordion-body">
-    
-                            <ul class="scndlvl">
-    
-                                {% for idscnd, scnditem in scndlevel[idtop] %}
-                                <li data-url="/product/{{ idscnd }}">{{ scnditem }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="g-col-6 overflow-auto" id="modele">
-                <h2 id="title"></h2>
-            </div>
-    
-            <div class="g-col-6 d-none" id="valeur">
-                <h2 id="nomModele"></h2>
-            </div>
-    
-            <div class="g-col-4 d-none" id="info">
-                <div id="maininfo" class="border-bottom border-white">
-                    <p id='spanProduit'>Produit s�lectionn�</p>
-                    <p id="libProduct"></p>
-                </div>
-                <div id="detail">
-                    <p id="spanDetail"><span>Détail de la commande</span></p>
-                    <p id="produit"></p>
-                    <p id="total"></p>
-                </div>
-                <div id="divValider">
-                    <input type="button" id="buttonValider" value="valider"/>
+<div class="grid"  id="main">
+    <div class="g-col-2 opt1 accordion" id="accordion">
+        {% for idtop, topitem in toplevel %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ idtop }}" aria-expanded="false"
+                    aria-controls="collapse{{ idtop }}">
+                    {{ topitem }}
+                </button>
+            </h2>
+            <div id="collapse{{ idtop }}" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                <div class="accordion-body">
+
+                    <ul class="scndlvl">
+
+                        {% for idscnd, scnditem in scndlevel[idtop] %}
+                        <li data-url="/product/{{ idscnd }}">{{ scnditem }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-    
         </div>
+        {% endfor %}
+    </div>
+    <div class="g-col-6 overflow-auto" id="modele">
+        <h2 id="title"></h2>
+    </div>
+
+    <div class="g-col-6 d-none" id="valeur">
+        <h2 id="nomModele"></h2>
+    </div>
+
+    <div class="g-col-4 d-none" id="info">
+        <div id="maininfo" class="border-bottom border-white">
+            <p id='spanProduit'>Produit s�lectionn�</p>
+            <p id="libProduct"></p>
+        </div>
+        <div id="detail">
+            <p id="spanDetail"><span>Détail de la commande</span></p>
+            <p id="produit"></p>
+            <p id="total"></p>
+        </div>
+        <div id="divValider">
+            <input type="button" id="buttonValider" value="valider"/>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
+
 {% block script %}
         <script>
             async function postData(url="", data = {}) {

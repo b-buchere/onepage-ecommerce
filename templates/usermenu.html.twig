@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}  
+
+{% block usermenu %}
+<header role="banner">
+    <nav class="navbar navbar-expand-lg p-0">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <span id="solde">
+            <strong>Solde : {% if( app.user.test ) %}
+                {{ app.user.solde|number_format(2,',',' ') }}€
+                {% else %} Test {% endif %}
+            </strong>
+        </span>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto p-0">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" aria-expanded="false" data-bs-toggle="dropdown" id="navbarDropdown-options">Options
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown-options">
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span>Tarifs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span>Prix de Ventes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span>Factures</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span>Aide</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button"
+                        aria-expanded="false" data-bs-toggle="dropdown" id="navbarDropdown-stat">
+                        Statistiques
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown-stat">
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span class="image-title">Ventes par vendeurs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" class="dropdown-item">
+                                <span class="image-title">Historiques des commandes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            
+                <li class="nav-item apropos">
+                    <a href="/logout" class="apropos nav-link">Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}

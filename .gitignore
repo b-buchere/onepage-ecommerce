@@ -21,6 +21,6 @@
 /node_modules/
 
 ###> eclipse ###
-./settings**
 /.buildpath
 /.project
+/.settings/

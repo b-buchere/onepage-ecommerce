@@ -12,7 +12,11 @@
         
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block script %}{% endblock %}
+        <div class="container-fluid w-75 p-0 text-bg-secondary">
+            {% block usermenu %}{% endblock %}
+            {% block body %}{% endblock %}
+        
+            {% block script %}{% endblock %}
+        </div>
     </body>
 </html>
